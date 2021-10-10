@@ -22,7 +22,7 @@ const getDb = () => {
   if (_db) {
     return _db;
   }
-  throw 'No databade found!';
+  throw 'No database found!';
 };
 
 exports.mongoConnect = mongoConnect;

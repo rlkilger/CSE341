@@ -23,9 +23,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use((req, res, next) => {
-  User.findById('615e24aa6f3366d416fa76c0')
+  User.findById('61626b6b78cb88ebc0fce8c4')
     .then(user => {
-      req.user = new User(user.name, user.email, user.cart, user._id);
+      req.user = user;
       next();
     })
     .catch(err => console.log(err));
@@ -37,28 +37,39 @@ app.use(shopRoutes);
 app.use(errorController.get404);
 
 
-// const corsOptions = {
-//     origin: "https://rlkilger-cse341.herokuapp.com/",
-//     optionsSuccessStatus: 200
-// };
-// app.use(cors(corsOptions));
+const corsOptions = {
+    origin: "https://rlkilger-cse341.herokuapp.com/",
+    optionsSuccessStatus: 200
+};
+app.use(cors(corsOptions));
 
 
-// const MONGODB_URL = process.env.MONGODB_URL || "mongodb+srv://rebecca:rebecca@cse341cluster-3dwlw.mongodb.net/test?retryWrites=true&w=majority";
+const MONGODB_URL = process.env.MONGODB_URL || "mongodb+srv://rebecca:cY3XIFukwEugXkXu@cluster0.kdj51.mongodb.net/shop?retryWrites=true&w=majority";
                         
 
-mongoConnect(() => {
-  app.listen(PORT);
-});
+// mongoConnect(() => {
+//   app.listen(PORT);
+// });
 
-// mongoose
-//   .connect(
-//     MONGODB_URL, options
-//   )
-//   .then(result => {
-//      // This should be your user handling code implement following the course videos
-//     app.listen(PORT);
-//   })
-//   .catch(err => {
-//     console.log(err);
-//   });
+mongoose
+  .connect(
+    MONGODB_URL
+  )
+  .then(result => {
+    User.findOne().then(user => {
+      if (!user) {
+        const user = new User({
+          name: 'Rebecca',
+          email: 'rebecca@test.com',
+          cart: {
+            items: []
+          }
+        });
+        user.save();
+      }
+    });
+    app.listen(PORT);
+  })
+  .catch(err => {
+    console.log(err);
+  });
