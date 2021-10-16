@@ -242,6 +242,15 @@ form {
   color: rgb(211, 14, 14);
 }
 
+.link {
+  color: #197896;
+  text-decoration: none;
+}
+
+.link:hover {
+  color: #86b4c2;
+}
+
 @media (min-width: 768px) {
   .main-header__nav {
     display: flex;
