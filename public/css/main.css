@@ -116,9 +116,22 @@ form {
   padding: 0.5rem 2rem;
 }
 
+.mobile-btn {
+  display: inline-block;
+  padding: 0.5rem 2rem;
+  font: inherit;
+  font-size: 1.5rem;
+  border: none;
+  color: black;
+  background: white;
+  cursor: pointer;
+  margin: 0;
+}
+
 .mobile-nav__item a:active,
 .mobile-nav__item a:hover,
-.mobile-nav__item a.active {
+.mobile-nav__item a.active,
+.mobile-btn:hover {
   background: #197896;
   color: white;
   border-radius: 3px;
